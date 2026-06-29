@@ -1,0 +1,16 @@
+devices:
+  - name: SW1
+    host: 192.168.10.11
+    device_type: cisco_ios
+    port: 22
+    username: admin
+    password: "${NETAUTO_DEFAULT_PASSWORD}"
+    secret: "${NETAUTO_DEFAULT_SECRET}"
+
+  - name: R1
+    host: 192.168.10.1
+    device_type: cisco_ios
+    port: 22
+    username: admin
+    password: "${NETAUTO_DEFAULT_PASSWORD}"
+    secret: "${NETAUTO_DEFAULT_SECRET}"

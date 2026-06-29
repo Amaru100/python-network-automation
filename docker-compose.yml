@@ -1,0 +1,9 @@
+services:
+  netauto:
+    build: .
+    env_file:
+      - .env
+    volumes:
+      - ./configs:/app/configs
+      - ./backups:/app/backups
+      - ./reports:/app/reports

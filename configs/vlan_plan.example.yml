@@ -1,0 +1,9 @@
+vlans:
+  - id: 10
+    name: USERS
+  - id: 20
+    name: VOICE
+  - id: 30
+    name: SERVERS
+  - id: 99
+    name: MANAGEMENT
