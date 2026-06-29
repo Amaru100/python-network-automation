@@ -1,20 +1,15 @@
-from pathlib import Path
+import pytest
 
-from netauto.devices.inventory_loader import load_inventory
+from netauto.devices.inventory_loader import InventoryLoadError, load_inventory
 
 
-def test_load_inventory_reads_devices(tmp_path: Path) -> None:
-    inventory = tmp_path / "inventory.yml"
-    inventory.write_text(
-        """
-devices:
-  - name: SW1
-    host: 192.168.10.11
-""",
-        encoding="utf-8",
-    )
+def test_load_inventory_reads_example_devices() -> None:
+    devices = load_inventory("configs/inventory.example.yml")
 
-    devices = load_inventory(inventory)
-
-    assert len(devices) == 1
+    assert len(devices) == 2
     assert devices[0].name == "SW1"
+
+
+def test_load_inventory_raises_for_missing_file() -> None:
+    with pytest.raises(InventoryLoadError, match="Inventory file not found"):
+        load_inventory("configs/missing.yml")

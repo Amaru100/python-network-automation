@@ -4,7 +4,7 @@ Professional Cisco network automation project for a networking graduate portfoli
 
 ## Current Scope
 
-This first milestone creates the project scaffold, documentation, sample configuration files, and a minimal Python entry point. Real Cisco SSH automation will be added in the next feature after the Cisco Packet Tracer lab is designed.
+This project currently supports loading and validating a Cisco device inventory from YAML. Real Cisco SSH automation will be added after the Cisco Packet Tracer lab devices are configured for SSH.
 
 ## Features Planned
 
@@ -43,6 +43,7 @@ Install dependencies:
 
 ```powershell
 pip install -r requirements.txt
+pip install -e .
 ```
 
 Copy the environment template:
@@ -55,6 +56,12 @@ Run the application:
 
 ```powershell
 python -m netauto.main
+```
+
+Validate and display the sample inventory:
+
+```powershell
+python -m netauto.main --list-devices
 ```
 
 Run tests:
@@ -75,9 +82,16 @@ docker compose up --build
 
 No real devices are configured yet. The sample inventory in `configs/inventory.example.yml` uses placeholder IP addresses that we will align with the Packet Tracer topology later.
 
+## What The Inventory Feature Does
+
+The inventory loader reads devices from YAML, expands environment variable placeholders such as `${NETAUTO_DEFAULT_PASSWORD}`, and validates each device before any SSH connection is attempted.
+
+This matters because automation should fail early if the source data is wrong. A bad IP address, missing hostname, or malformed inventory should be caught before the tool starts changing network devices.
+
 ## Troubleshooting
 
 - If Python cannot find `netauto`, run commands from the project root directory.
+- If `python -m netauto.main` fails, confirm you ran `pip install -e .` inside the active virtual environment.
 - If SSH fails later, confirm the Cisco device has an IP address, SSH enabled, a local user, and reachable routing.
 - Never commit `.env`; use `.env.example` for safe placeholders.
 
